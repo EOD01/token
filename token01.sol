@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract JUB70Token is ERC20 {
+contract token01 is ERC20 {
 
-    constructor(uint256 initialSupply) ERC20("Jubilee70", "JUB70") {
+    constructor(uint256 initialSupply) ERC20("token01", "TOK01") {
         _mint(msg.sender, initialSupply);
     }
 
