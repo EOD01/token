@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import {AccessControlEnumerable as AccessControl} from "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 
@@ -38,6 +38,18 @@ contract token01 is ERC20, AccessControl, Pausable {
         super._beforeTokenTransfer(from, to, amount);
         require(!paused(), "Cannot transfer while paused");
         require(!Address.isContract(to), "Cannot send to a contract!");
+    }
+
+    function getRoleMembers(bytes32 role)
+        public view onlyRole(DEFAULT_ADMIN_ROLE) returns (address[] memory)
+    {
+        uint256 count = getRoleMemberCount(role);
+        address[] memory members = new address[](count);
+
+        for (uint256 i = 0; i < count; ++i) {
+            members[i] = getRoleMember(role, i);
+        }
+        return members;
     }
 
 }
